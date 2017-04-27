@@ -1,13 +1,13 @@
 ## Bubble Layer
 
-根据`View`的`frame`生成一个气泡式的`CAShapeLayer`，然后去`mask`这个`View`。
+根据`View`的`size`生成一个气泡式的`CAShapeLayer`，然后去`mask`这个`View`。
 
 三角形箭头的宽度、高度、方向和左右(上下)位置以及矩形的圆角半径等属性都是可以自定义的。
 
 使用示例:
 
 ```objc
-BubbleLayer *bubbleLayer = [[BubbleLayer alloc]initWithLayerFrame:myView.bounds];
+BubbleLayer *bubbleLayer = [[BubbleLayer alloc]initWithSize:myView.bounds.size];
 
 bubbleLayer.arrowDirection = ArrowDirectionLeft;
 bubbleLayer.arrowHeight = 22;
