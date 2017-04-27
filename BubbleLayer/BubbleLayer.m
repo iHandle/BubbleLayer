@@ -18,7 +18,8 @@
 @property (nonatomic) NSMutableArray *centerOfCorner;
 
 @property (nonatomic) CGRect contentFrame;
-@property (nonatomic) CGRect frame;
+//@property (nonatomic) CGRect frame;
+@property (nonatomic) CGSize size;
 
 
 @end
@@ -34,35 +35,35 @@
     CGPoint endPoint;
     
     // 箭头 纵向/横向的可调长度
-    CGFloat validWidthForHead = _frame.size.width - 2 * _cornerRadius - _arrowWidth;
-    CGFloat validHeightForHead = _frame.size.height - 2 * _cornerRadius - _arrowWidth;
+    CGFloat validWidthForHead = _size.width - 2 * _cornerRadius - _arrowWidth;
+    CGFloat validHeightForHead = _size.height - 2 * _cornerRadius - _arrowWidth;
     
     switch (_arrowDirection) {
             
             //右
         case ArrowDirectionRight:  //以中间作基准
-            headPoint = CGPointMake(_frame.size.width , CGRectGetMidY(_frame) + validHeightForHead*(_arrowPosition - 0.5));
+            headPoint = CGPointMake(_size.width , _size.height / 2 + validHeightForHead*(_arrowPosition - 0.5));
             beginPoint = CGPointMake(headPoint.x - _arrowHeight, headPoint.y - _arrowWidth/2);
             endPoint = CGPointMake(beginPoint.x, beginPoint.y + _arrowWidth);
             break;
             
             //下
         case ArrowDirectionButtom:
-            headPoint = CGPointMake(CGRectGetMidX(_frame) + validWidthForHead*(_arrowPosition - 0.5), _frame.size.height);
+            headPoint = CGPointMake(_size.width / 2 + validWidthForHead*(_arrowPosition - 0.5), _size.height);
             beginPoint = CGPointMake(headPoint.x + _arrowWidth/2, headPoint.y - _arrowHeight);
             endPoint = CGPointMake(beginPoint.x - _arrowWidth, beginPoint.y);
             break;
             
             // 左
         case ArrowDirectionLeft:
-            headPoint = CGPointMake(0, CGRectGetMidY(_frame) + validHeightForHead*(_arrowPosition - 0.5));
+            headPoint = CGPointMake(0, _size.height / 2 + validHeightForHead*(_arrowPosition - 0.5));
             beginPoint = CGPointMake(headPoint.x + _arrowHeight, headPoint.y + _arrowWidth/2);
             endPoint = CGPointMake(beginPoint.x, beginPoint.y - _arrowWidth);
             break;
             
             //上
         case ArrowDirectionTop:
-            headPoint = CGPointMake(CGRectGetMidX(_frame) + validWidthForHead*(_arrowPosition - 0.5), 0);
+            headPoint = CGPointMake(_size.width / 2 + validWidthForHead*(_arrowPosition - 0.5), 0);
             beginPoint = CGPointMake(headPoint.x - _arrowWidth/2, headPoint.y + _arrowHeight);
             endPoint = CGPointMake(beginPoint.x + _arrowWidth, beginPoint.y);
             break;
@@ -113,7 +114,7 @@
 - (CGRect)contentFrame {
     
     CGFloat x = 0, y = 0;
-    CGFloat width = _frame.size.width, height = _frame.size.height;
+    CGFloat width = _size.width, height = _size.height;
     
     switch (_arrowDirection) {
         case ArrowDirectionRight:
@@ -136,7 +137,7 @@
     return _contentFrame;
 }
 
-#pragma mark - others
+#pragma mark - draw
 
 // 绘制气泡形状
 - (UIBezierPath *)bubblePath {
@@ -198,6 +199,8 @@
 }
 
 
+#pragma mark - setup
+
 - (void)setDefaultProperty {
     _cornerRadius = 10;
     _arrowWidth = 10;
@@ -216,16 +219,13 @@
 
 
 
-- (instancetype) initWithLayerFrame:(CGRect) layerFrame {
+-(instancetype)initWithSize:(CGSize)size {
     if(self = [super init]) {
         [self setDefaultProperty];
-        _frame = layerFrame;
+        _size = size;
     }
     return self;
 }
-
-
-
 
 
 

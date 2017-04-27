@@ -25,6 +25,7 @@ typedef enum {
 // 箭头的位置 0表示最左／上，1表示最右／下
 @property CGFloat arrowPosition;
 
-- (instancetype) initWithLayerFrame:(CGRect) layerFrame;
+- (instancetype) initWithSize:(CGSize) size;
+
 - (CAShapeLayer *) layer;
 @end
