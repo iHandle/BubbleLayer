@@ -1,28 +1,32 @@
-## Bubble Layer
+##Bubble Layer
+###作用 
+将一个`view`做成“气泡弹框”的样式，如下图所示：
 
-根据`View`的`size`生成一个气泡式的`CAShapeLayer`，然后去`mask`这个`View`。
+![](https://ws3.sinaimg.cn/large/006tNbRwgy1fw3lxuse6ej313r0m11kx.jpg)
 
-三角形箭头的宽度、高度、方向和左右(上下)位置以及矩形的圆角半径等属性都是可以自定义的。
-
-使用示例:
+###使用方法
+将`BubbleLayer.h`和`BubbleLayer.m`两个文件导入你的工程，然后在使用的地方`import`头文件。下面是一个使用的例子：
 
 ```objc
-BubbleLayer *bubbleLayer = [[BubbleLayer alloc]initWithSize:myView.bounds.size];
+BubbleLayer *bbLayer = [[BubbleLayer alloc]initWithSize:myView.bounds.size];
 
-bubbleLayer.arrowDirection = ArrowDirectionLeft;
-bubbleLayer.arrowHeight = 22;
-bubbleLayer.arrowWidth = 30;
-bubbleLayer.arrowPosition = 0.8;
-bubbleLayer.cornerRadius = 20;
+// 矩形框的圆角半径
+bbLayer.cornerRadius = 20;
+
+// 凸起那部分暂且称之为“箭头”，下面的参数设置它的形状
+bbLayer.arrowDirection = ArrowDirectionLeft;
+bbLayer.arrowHeight = 22;   // 箭头的高度（长度）
+bbLayer.arrowWidth = 30;    // 箭头的宽度
+bbLayer.arrowPosition = 0.5;// 箭头的相对位置
+bbLayer.arrowRadius = 3;    // 箭头处的圆角半径
 
 [myView.layer setMask:[bubbleLayer layer]];
 
 ```
-各种示例效果：
-
-<img src="http://7xtkyf.com2.z0.glb.clouddn.com/2017-04-26_BubbleView_5.png" width="400"/>
 
 
-#### 实现原理
+###Demo
+不太清楚的参数可以通过使用Demo理解。
 
-[详情](http://ihandle.top/2017/04/26/2017-04-26_BubbleView/)
+![](https://ws1.sinaimg.cn/large/006tNbRwgy1fw3m9v9keuj30ku112qjh.jpg)
+

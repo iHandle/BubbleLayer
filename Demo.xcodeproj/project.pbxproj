@@ -16,6 +16,7 @@
 		4956C8D21EB109C30021E6E8 /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956C8D11EB109C30021E6E8 /* DemoTests.m */; };
 		4956C8DD1EB109C30021E6E8 /* DemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956C8DC1EB109C30021E6E8 /* DemoUITests.m */; };
 		4956C8ED1EB10A6B0021E6E8 /* BubbleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4956C8EC1EB10A6B0021E6E8 /* BubbleLayer.m */; };
+		497E6063216DA2510041B32E /* Doraemon.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 497E6062216DA2510041B32E /* Doraemon.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		4956C8DE1EB109C30021E6E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4956C8EB1EB10A6B0021E6E8 /* BubbleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleLayer.h; sourceTree = "<group>"; };
 		4956C8EC1EB10A6B0021E6E8 /* BubbleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleLayer.m; sourceTree = "<group>"; };
+		497E6062216DA2510041B32E /* Doraemon.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Doraemon.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		4956C8B61EB109C30021E6E8 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				497E6062216DA2510041B32E /* Doraemon.jpeg */,
 				4956C8BA1EB109C30021E6E8 /* AppDelegate.h */,
 				4956C8BB1EB109C30021E6E8 /* AppDelegate.m */,
 				4956C8BD1EB109C30021E6E8 /* ViewController.h */,
@@ -264,6 +267,7 @@
 			files = (
 				4956C8C71EB109C30021E6E8 /* LaunchScreen.storyboard in Resources */,
 				4956C8C41EB109C30021E6E8 /* Assets.xcassets in Resources */,
+				497E6063216DA2510041B32E /* Doraemon.jpeg in Resources */,
 				4956C8C21EB109C30021E6E8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +392,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -431,7 +435,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
