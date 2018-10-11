@@ -21,7 +21,7 @@ bbLayer.arrowWidth = 30;    // 箭头的宽度
 bbLayer.arrowPosition = 0.5;// 箭头的相对位置
 bbLayer.arrowRadius = 3;    // 箭头处的圆角半径
 
-[myView.layer setMask:[bubbleLayer layer]];
+[myView.layer setMask:[bbLayer layer]];
 
 ```
 
