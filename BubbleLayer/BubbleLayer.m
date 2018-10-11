@@ -162,7 +162,7 @@
     // 获取path
     CGContextClosePath(ctx);
     CGPathRef path = CGContextCopyPath(ctx);
-    
+    CGContextRelease(ctx);
     return path;
 }
 
