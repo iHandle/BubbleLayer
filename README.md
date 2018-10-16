@@ -1,7 +1,7 @@
 ### Bubble Layer
 
 #### 作用 
-将一个`view`做成“气泡弹框”的样式，如下图所示：
+将一个`view`做成“气泡”的样式，如下图所示：
 
 <img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fw3lxuse6ej313r0m11kx.jpg" width="300"/>
 
