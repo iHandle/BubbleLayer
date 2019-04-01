@@ -1,6 +1,6 @@
 ### Bubble Layer
 
-将一个`view`做成“气泡”的样式，如下图所示：
+用于将一个`view`做成“气泡”的样式，效果如下图所示：
 
 <img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fw3lxuse6ej313r0m11kx.jpg" width="300"/>
 
