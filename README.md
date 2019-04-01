@@ -1,7 +1,5 @@
 ### Bubble Layer
 
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 将一个`view`做成“气泡”的样式，如下图所示：
 
 <img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fw3lxuse6ej313r0m11kx.jpg" width="300"/>
