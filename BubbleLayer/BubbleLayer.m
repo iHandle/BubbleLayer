@@ -19,7 +19,6 @@
 #pragma mark - preparation
 
 // 关键点:箭头的三个点和矩形的四个角的点
-
 -(NSMutableArray *)keyPoints {
     
     NSMutableArray *points = [[NSMutableArray alloc]init];
@@ -29,57 +28,55 @@
     CGPoint topPoint; // 顶点
     CGPoint endPoint;  // 另外一个支点
     
-    // 箭头顶点 横向(或纵向)位置()可调节的范围长度（用来计算arrowPosition）
-    CGFloat validWidthForTopPoint = _size.width - 2 * _cornerRadius - _arrowWidth;
-    CGFloat validHeightForTopPoint = _size.height - 2 * _cornerRadius - _arrowWidth;
+    // 箭头顶点topPoint的X坐标(或Y坐标)的范围（用来计算arrowPosition）
+    CGFloat tpXRange = _size.width - 2 * _cornerRadius - _arrowWidth;
+    CGFloat tpYRange = _size.height - 2 * _cornerRadius - _arrowWidth;
     
     // 这几个参数用于确定矩形框的位置(就是给箭头腾出空间后剩下的区域)
     // 这些参数在下面会根据箭头的位置进行调整
     CGFloat x = 0, y = 0;  // 矩形框左上角的坐标
     CGFloat width = _size.width, height = _size.height; //矩形框的大小
     
-    
-    // 计算矩形框的位置
+    // 计算箭头的位置，以及调整矩形框的位置和大小
     switch (_arrowDirection) {
             
             //箭头在右
         case ArrowDirectionRight:
-            width -= _arrowHeight; //矩形框右边的位置“腾出”给箭头
             
-            //先计算顶点
-            topPoint = CGPointMake(_size.width , _size.height / 2 + validHeightForTopPoint*(_arrowPosition - 0.5));
-            //再计算两个支点
+            topPoint = CGPointMake(_size.width , _size.height / 2 + tpYRange*(_arrowPosition - 0.5));
             beginPoint = CGPointMake(topPoint.x - _arrowHeight, topPoint.y - _arrowWidth/2);
             endPoint = CGPointMake(beginPoint.x, beginPoint.y + _arrowWidth);
+            
+            width -= _arrowHeight; //矩形框右边的位置“腾出”给箭头
             break;
             
             //箭头在下
         case ArrowDirectionBottom:
-            height -= _arrowHeight;
-            
-            topPoint = CGPointMake(_size.width / 2 + validWidthForTopPoint*(_arrowPosition - 0.5), _size.height);
+            topPoint = CGPointMake(_size.width / 2 + tpXRange*(_arrowPosition - 0.5), _size.height);
             beginPoint = CGPointMake(topPoint.x + _arrowWidth/2, topPoint.y - _arrowHeight);
             endPoint = CGPointMake(beginPoint.x - _arrowWidth, beginPoint.y);
+            
+            height -= _arrowHeight;
             break;
             
             //箭头在左
         case ArrowDirectionLeft:
-            x = _arrowHeight;
-            width -= _arrowHeight;
-            
-            topPoint = CGPointMake(0, _size.height / 2 + validHeightForTopPoint*(_arrowPosition - 0.5));
+           topPoint = CGPointMake(0, _size.height / 2 + tpYRange*(_arrowPosition - 0.5));
             beginPoint = CGPointMake(topPoint.x + _arrowHeight, topPoint.y + _arrowWidth/2);
             endPoint = CGPointMake(beginPoint.x, beginPoint.y - _arrowWidth);
+            
+            x = _arrowHeight;
+            width -= _arrowHeight;
             break;
             
             //箭头在上
         case ArrowDirectionTop:
-            y = _arrowHeight;
-            height -= _arrowHeight;
-            
-            topPoint = CGPointMake(_size.width / 2 + validWidthForTopPoint*(_arrowPosition - 0.5), 0);
+            topPoint = CGPointMake(_size.width / 2 + tpXRange*(_arrowPosition - 0.5), 0);
             beginPoint = CGPointMake(topPoint.x - _arrowWidth/2, topPoint.y + _arrowHeight);
             endPoint = CGPointMake(beginPoint.x + _arrowWidth, beginPoint.y);
+            
+            y = _arrowHeight;
+            height -= _arrowHeight;
             break;
     }
     
@@ -114,9 +111,7 @@
         rectPointIndex = (rectPointIndex+1)%4;
     }
     
-        
-    
-    
+         
     return points;
 }
 
@@ -139,30 +134,29 @@
     
     CGPoint pointA, pointB;  //用于 CGContextAddArcToPoint函数
     CGFloat radius;
-    int i = 0;
+    int count = 0;
     
-    while(1) {
-        
-        // 整个过程需要画七个角，所以分为七个步骤
-        if (i > 6)
-            break;
+    while(count < 7) {
+        // 整个过程需要画七个圆角，所以分为七个步骤
         
         // 箭头处的三个圆角和矩形框的四个圆角不一样
-        radius = i < 3 ?  _arrowRadius : _cornerRadius;
-        pointA = [[points objectAtIndex:i] CGPointValue];
+        radius = count < 3 ?  _arrowRadius : _cornerRadius;
         
-        
+        pointA = [[points objectAtIndex:count] CGPointValue];
+        pointB = [[points objectAtIndex:(count+1)%7] CGPointValue];
         // 画矩形框最后一个角的时候，pointB就是points[0]
-        pointB = [[points objectAtIndex:(i+1)%7] CGPointValue];
 
         CGContextAddArcToPoint(ctx, pointA.x, pointA.y, pointB.x, pointB.y, radius);
-        i = i + 1;
+        
+        count = count + 1;
     }
 
     // 获取path
     CGContextClosePath(ctx);
     CGPathRef path = CGContextCopyPath(ctx);
-    CGContextRelease(ctx);
+    
+    UIGraphicsEndImageContext();
+    
     return path;
 }
 
@@ -180,21 +174,22 @@
 
 // 设置默认参数
 - (void)setDefaultProperty {
-    _cornerRadius = CORNER_RADIUS;
-    _arrowWidth = ARROW_WIDTH;
-    _arrowHeight = ARROW_HEIGHT;
-    _arrowDirection = ARROW_DIRECTION;
-    _arrowPosition = ARROW_POSITION;
-    _arrowRadius = ARROW_RADIUS;
+    
+    _cornerRadius = 8;
+    _arrowWidth = 30;
+    _arrowHeight = 12;
+    _arrowDirection = 1;
+    _arrowPosition = 0.5;
+    _arrowRadius = 3;
     
 }
 
 #pragma mark - init
 
--(instancetype)initWithSize:(CGSize)size {
+-(instancetype)initWithSize:(CGSize) originalSize {
     if(self = [super init]) {
         [self setDefaultProperty];
-        _size = size;
+        _size = originalSize;
     }
     return self;
 }
