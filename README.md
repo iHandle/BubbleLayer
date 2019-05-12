@@ -5,7 +5,9 @@
 <img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fw3lxuse6ej313r0m11kx.jpg" width="300"/>
 
 #### 使用方法
-将`BubbleLayer.h`和`BubbleLayer.m`两个文件导入你的工程，然后在使用的地方`import`头文件。下面是一个使用的例子：
+将`BubbleLayer.h`和`BubbleLayer.m`两个文件导入你的工程，然后在使用的地方`import`头文件。如果是`Swift`工程，可以直接导入`BubbleLayer.swift`。
+
+下面是一个使用`Objective-C`的例子：
 
 ```objc
 BubbleLayer *bbLayer = [[BubbleLayer alloc]initWithSize:myView.bounds.size];
