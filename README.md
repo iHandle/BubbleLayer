@@ -29,7 +29,7 @@ bbLayer.arrowRadius = 3;    // 箭头处的圆角半径
 #### Demo
 如果不太清楚的参数的含义，可以通过使用Demo理解。
 
-<img src="https://i.imgur.com/NgJgJ39.gif" width="300"/>
+<img src="https://i.imgur.com/leO6enP.gif" width="300"/>
 
 
 
