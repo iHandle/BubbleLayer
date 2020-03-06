@@ -7,10 +7,10 @@
 import UIKit
 
 // 一些在注释中使用的叫法
-// 箭头: 气泡弹框突出那个三角形把它叫做【箭头】
+// 箭头: 气泡形状突出那个三角形把它叫做【箭头】
 // 箭头的顶点和底点: 将箭头指向的那个点叫为【顶点】，其余两个点叫为【底点】
 // 箭头的高度和宽度: 箭头顶点到底点连线的距离叫为【箭头的高度】，两底点的距离叫为【箭头的宽度】
-// 矩形框: 气泡弹框除了箭头，剩下的部分叫为【矩形框】
+// 矩形框: 气泡形状除了箭头，剩下的部分叫为【矩形框】
 // 箭头的相对位置: 如果箭头的方向是向右或者向左，0表达箭头在最上方，1表示箭头在最下方
 //              如果箭头的方向是向上或者向下，0表达箭头在最左边，1表示箭头在最右边
 //              默认是 0.5，即在中间
@@ -18,22 +18,28 @@ import UIKit
 // 箭头方向枚举
 enum ArrowDirection: Int {
     case right = 0   //指向右边, 即在圆角矩形的右边
-    case bottom = 1
-    case left = 2
-    case top = 3
+    case bottom = 1  //指向下边
+    case left = 2   //指向左边
+    case top = 3   //指向上边
 }
 
 class BubbleLayer: NSObject {
-    
+   
+    // 矩形的圆角的半径
     var cornerRadius: CGFloat = 8
+    // 箭头位置的圆角半径
     var arrowRadius: CGFloat = 3
+    // 箭头的高度
     var arrowHeight: CGFloat = 12
+    // 箭头的宽度
     var arrowWidth: CGFloat = 30
+    // 箭头方向
     var arrowDirection: Int = 1
+    // 箭头的相对位置
     var arrowPosition: CGFloat = 0.5
-    
-    // 这里的size是需要mask成气泡弹框的view的size
+    // 这里的size是需要mask成气泡形状的view的size
     var size: CGSize = CGSize.zero
+    
     
     init(originalSize: CGSize) {
         size = originalSize
@@ -45,6 +51,7 @@ class BubbleLayer: NSObject {
         layer.path = self.bubblePath()
         return layer
     }
+    
     
     // 绘制气泡形状,获取path
     func bubblePath() -> CGPath? {
@@ -67,7 +74,7 @@ class BubbleLayer: NSObject {
         var count: Int = 0
         
         while count < 7 {
-            // 整个过程需要画七个圆角，所以分为七个步骤
+            // 整个过程需要画七个圆角(矩形框的四个角和箭头处的三个角)，所以分为七个步骤
             
             // 箭头处的三个圆角和矩形框的四个圆角不一样
             radius = count < 3 ? arrowRadius : cornerRadius
@@ -89,7 +96,7 @@ class BubbleLayer: NSObject {
     }
     
     
-    // 关键点: 箭头的三个点和矩形的四个角的点
+    // 关键点: 绘制气泡形状前，需要计算箭头的三个点和矩形的四个角的点的坐标
     func keyPoints() -> Array<CGPoint> {
         
         // 先确定箭头的三个点
@@ -110,21 +117,21 @@ class BubbleLayer: NSObject {
         // 计算箭头的位置，以及调整矩形框的位置和大小
         switch arrowDirection {
             
-        case 0: //箭头在右
+        case 0: //箭头在右时
             topPoint = CGPoint(x: size.width, y: size.height / 2 + tpYRange * (arrowPosition - 0.5))
             beginPoint = CGPoint(x: topPoint.x - arrowHeight, y:topPoint.y - arrowWidth / 2 )
             endPoint = CGPoint(x: beginPoint.x, y: beginPoint.y + arrowWidth)
             
             rWidth = rWidth - arrowHeight //矩形框右边的位置“腾出”给箭头
             
-        case 1: //箭头在下
+        case 1: //箭头在下时
             topPoint = CGPoint(x: size.width / 2 + tpXRange * (arrowPosition - 0.5), y: size.height)
             beginPoint = CGPoint(x: topPoint.x + arrowWidth / 2, y:topPoint.y - arrowHeight )
             endPoint = CGPoint(x: beginPoint.x - arrowWidth, y: beginPoint.y)
             
             rHeight = rHeight - arrowHeight
             
-        case 2: //箭头在左
+        case 2: //箭头在左时
             topPoint = CGPoint(x: 0, y: size.height / 2 + tpYRange * (arrowPosition - 0.5))
             beginPoint = CGPoint(x: topPoint.x + arrowHeight, y: topPoint.y + arrowWidth / 2)
             endPoint = CGPoint(x: beginPoint.x, y: beginPoint.y - arrowWidth)
@@ -132,7 +139,7 @@ class BubbleLayer: NSObject {
             rX = arrowHeight
             rWidth = rWidth - arrowHeight
             
-        case 3: //箭头在上
+        case 3: //箭头在上时
             topPoint = CGPoint(x: size.width / 2 + tpXRange * (arrowPosition - 0.5), y: 0)
             beginPoint = CGPoint(x: topPoint.x - arrowWidth / 2, y: topPoint.y + arrowHeight)
             endPoint = CGPoint(x: beginPoint.x + arrowWidth, y: beginPoint.y)
@@ -156,7 +163,7 @@ class BubbleLayer: NSObject {
         //先放在一个临时数组, 放置顺序跟下面紧接着的操作有关
         let rectPoints = [bottomRight, bottomLeft, topLeft, topRight]
         
-        // 绘制气泡弹框的时候，从箭头开始,顺时针地进行
+        // 绘制气泡形状的时候，从箭头开始,顺时针地进行
         // 箭头向右时，画完箭头之后会先画到矩形框的右下角
         // 所以此时先把矩形框右下角的点放进关键点数组,其他三个点按顺时针方向添加
         // 箭头在其他方向时，以此类推
@@ -169,7 +176,6 @@ class BubbleLayer: NSObject {
         
         return points
     }
-    
     
 
 }

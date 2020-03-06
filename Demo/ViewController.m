@@ -27,10 +27,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+
     UIImage *image = [UIImage imageNamed:(@"Doraemon.jpeg")];
     _imageView.image = image;
     
+    
+
     [_segCtrl addTarget:self action:@selector(segCtrlAction) forControlEvents:UIControlEventValueChanged];
+    
     [_sdArrowHeight addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
     [_sdArrowWidth addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
     [_sdArrowRadius addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
@@ -45,6 +49,7 @@
 
 
 - (void) segCtrlAction {
+    
     NSInteger index =  _segCtrl.selectedSegmentIndex;
     ArrowDirection direction = (ArrowDirection)index;
     _bbLayer.arrowDirection = direction;
@@ -52,7 +57,9 @@
     
 }
 
+
 - (void) sliderAction: (UISlider*)sender {
+    
     if ([sender isEqual:_sdArrowHeight]) {
         _bbLayer.arrowHeight = _sdArrowHeight.value;
     } else if ([sender isEqual:_sdArrowWidth]) {
@@ -64,11 +71,13 @@
     } else if ([sender isEqual:_sdArrowPosition]) {
         _bbLayer.arrowPosition = _sdArrowPosition.value;
     }
+    
     _imageView.layer.mask = _bbLayer.layer;
     
  }
 
 
+// 气泡模式的开关
 - (void) switchAction {
     
     BOOL enabled = _bbSwitch.isOn;

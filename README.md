@@ -2,7 +2,7 @@
 
 用于将一个`view`做成“气泡”的样式，效果如下图所示：
 
-<img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fw3lxuse6ej313r0m11kx.jpg" width="300"/>
+<img src="https://i.imgur.com/ahemgD8.png" width="300"/>
 
 #### 使用方法
 将`BubbleLayer.h`和`BubbleLayer.m`两个文件导入你的工程，然后在使用的地方`import`头文件。如果是`Swift`工程，可以直接导入`BubbleLayer.swift`。
@@ -26,14 +26,10 @@ bbLayer.arrowRadius = 3;    // 箭头处的圆角半径
 
 ```
 
-
 #### Demo
-不太清楚的参数可以通过使用Demo理解。
+如果不太清楚的参数的含义，可以通过使用Demo理解。
 
-<img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fw3m9v9keuj30ku112qjh.jpg" width="300"/>
+<img src="https://i.imgur.com/NgJgJ39.gif" width="300"/>
 
-
-#### 实现原理
-[关键部分讲解](http://ihandle.top/2017/04/26/2017-04-26_BubbleView/)
 
 

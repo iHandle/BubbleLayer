@@ -7,7 +7,7 @@
 @interface BubbleLayer()
 
 
-// 需要mask成气泡弹框的view的size
+// 需要mask成气泡形状的view的size
 @property (nonatomic) CGSize size;
 
 
@@ -18,7 +18,7 @@
 
 #pragma mark - preparation
 
-// 关键点:箭头的三个点和矩形的四个角的点
+// 关键点: 绘制气泡形状前，需要计算箭头的三个点和矩形的四个角的点的坐标
 -(NSMutableArray *)keyPoints {
     
     NSMutableArray *points = [[NSMutableArray alloc]init];
@@ -40,7 +40,7 @@
     // 计算箭头的位置，以及调整矩形框的位置和大小
     switch (_arrowDirection) {
             
-            //箭头在右
+            //箭头在右时
         case ArrowDirectionRight:
             
             topPoint = CGPointMake(_size.width , _size.height / 2 + tpYRange*(_arrowPosition - 0.5));
@@ -50,7 +50,7 @@
             width -= _arrowHeight; //矩形框右边的位置“腾出”给箭头
             break;
             
-            //箭头在下
+            //箭头在下时
         case ArrowDirectionBottom:
             topPoint = CGPointMake(_size.width / 2 + tpXRange*(_arrowPosition - 0.5), _size.height);
             beginPoint = CGPointMake(topPoint.x + _arrowWidth/2, topPoint.y - _arrowHeight);
@@ -59,7 +59,7 @@
             height -= _arrowHeight;
             break;
             
-            //箭头在左
+            //箭头在左时
         case ArrowDirectionLeft:
            topPoint = CGPointMake(0, _size.height / 2 + tpYRange*(_arrowPosition - 0.5));
             beginPoint = CGPointMake(topPoint.x + _arrowHeight, topPoint.y + _arrowWidth/2);
@@ -69,7 +69,7 @@
             width -= _arrowHeight;
             break;
             
-            //箭头在上
+            //箭头在上时
         case ArrowDirectionTop:
             topPoint = CGPointMake(_size.width / 2 + tpXRange*(_arrowPosition - 0.5), 0);
             beginPoint = CGPointMake(topPoint.x - _arrowWidth/2, topPoint.y + _arrowHeight);
@@ -94,15 +94,15 @@
     CGPoint topRight = CGPointMake(x+width, y);
     
     
-    //先放在一个临时数组, 放置顺序跟下面紧接着的操作有关
+    //先把圆角矩形的四个点放在一个临时数组, 放置顺序跟下面紧接着的操作有关
     NSMutableArray *rectPoints = [NSMutableArray arrayWithObjects: [NSValue valueWithCGPoint:bottomRight],
                                   [NSValue valueWithCGPoint:bottomLeft],
                                   [NSValue valueWithCGPoint:topLeft],
                                   [NSValue valueWithCGPoint:topRight],  nil];
     
     
-    // 绘制气泡弹框的时候，从箭头开始,顺时针地进行
-    // 箭头向右时，画完箭头之后会先画到矩形框的右下角
+    // 绘制气泡形状的时候，从箭头开始,顺时针地进行
+    // 假设箭头是向右的，那么画完箭头之后会先画到矩形框的右下角
     // 所以此时先把矩形框右下角的点放进关键点数组,其他三个点按顺时针方向添加
     // 箭头在其他方向时，以此类推
     int rectPointIndex = (int)_arrowDirection;
@@ -111,7 +111,6 @@
         rectPointIndex = (rectPointIndex+1)%4;
     }
     
-         
     return points;
 }
 
@@ -137,7 +136,7 @@
     int count = 0;
     
     while(count < 7) {
-        // 整个过程需要画七个圆角，所以分为七个步骤
+        // 整个过程需要画七个圆角(矩形框的四个角和箭头处的三个角)，所以分为七个步骤
         
         // 箭头处的三个圆角和矩形框的四个圆角不一样
         radius = count < 3 ?  _arrowRadius : _cornerRadius;
@@ -162,7 +161,7 @@
 
 
 
-// 用于mask的layer
+// 生成用于mask的layer
 - (CAShapeLayer *) layer{
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.path = [self bubblePath];
