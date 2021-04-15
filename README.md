@@ -32,8 +32,3 @@ bbLayer.arrowRadius = 3;    // 箭头处的圆角半径
 <img src="https://i.imgur.com/aD3thju.gif" width="300"/>
 
 
-
-#### 实现原理
-[关键代码讲解](https://ihandle.top/2017/04/26/2017-04-26_BubbleView/)
-
-
